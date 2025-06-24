@@ -1,0 +1,364 @@
+/* TradingDashboard.module.css */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+/* 헤더 스타일 */
+.header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0 0 15px 0;
+    color: #1e293b;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.lastUpdate {
+    color: #64748b;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.healthIndicator {
+    font-weight: 600;
+    color: #10b981;
+}
+
+/* 로딩 스타일 */
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 에러 스타일 */
+.error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.error h2 {
+    color: #dc2626;
+    margin: 0 0 15px 0;
+}
+
+.error p {
+    color: #7f1d1d;
+    margin: 10px 0;
+}
+
+.troubleshooting {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.troubleshooting h3 {
+    color: #374151;
+    margin: 0 0 10px 0;
+}
+
+.troubleshooting ol {
+    color: #4b5563;
+    padding-left: 20px;
+}
+
+.troubleshooting code {
+    background: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    color: #1f2937;
+}
+
+.retryButton {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+    background: #2563eb;
+}
+
+/* 신호 섹션 */
+.signalSection {
+    margin: 30px 0;
+}
+
+.signalCard {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.signalCard:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.signalCard h2 {
+    margin: 0 0 15px 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.signalReason {
+    color: #374151;
+    font-size: 1.1rem;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.ratioInfo {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ratioInfo span {
+    background: #f1f5f9;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+/* 주식 데이터 그리드 */
+.stockGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.stockCard {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stockCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stockCard h3 {
+    margin: 0 0 15px 0;
+    color: #1e293b;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3b82f6;
+    margin: 15px 0;
+}
+
+.indicators {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.indicator:last-child {
+    border-bottom: none;
+}
+
+.indicator span:first-child {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.indicator span:last-child {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.vixInfo {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.vixInfo p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* 차트 섹션 */
+.chartSection {
+    margin: 40px 0;
+}
+
+/* 컨트롤 섹션 */
+.controls {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.refreshButton {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.refreshButton:hover:not(:disabled) {
+    background: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 10px -1px rgba(0, 0, 0, 0.15);
+}
+
+.refreshButton:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .lastUpdate {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .signalCard {
+        padding: 20px;
+    }
+    
+    .signalCard h2 {
+        font-size: 1.5rem;
+    }
+    
+    .ratioInfo {
+        justify-content: flex-start;
+        gap: 15px;
+    }
+    
+    .ratioInfo span {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .stockGrid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .price {
+        font-size: 1.6rem;
+    }
+    
+    .refreshButton {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+    .container {
+        background-color: #0f172a;
+        color: #f1f5f9;
+    }
+    
+    .header h1 {
+        color: #f1f5f9;
+    }
+    
+    .signalCard,
+    .stockCard {
+        background: #1e293b;
+        color: #f1f5f9;
+    }
+    
+    .signalReason {
+        color: #cbd5e1;
+    }
+    
+    .indicator span:first-child {
+        color: #94a3b8;
+    }
+    
+    .indicator span:last-child {
+        color: #f1f5f9;
+    }
+    
+    .ratioInfo span {
+        background: #334155;
+        color: #f1f5f9;
+    }
+}
