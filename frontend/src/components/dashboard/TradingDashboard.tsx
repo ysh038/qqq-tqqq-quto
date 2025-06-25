@@ -1,7 +1,7 @@
 // src/components/TradingDashboard.tsx
 import React, { useState, useEffect } from 'react'
 
-import StockChart from './StockChart'
+import IndividualStockChart from './IndividualStockChart'
 import styles from './TradingDashboard.module.css'
 import { getDashboardData, checkApiHealth } from '../../queries/stockApi'
 
@@ -268,9 +268,16 @@ function TradingDashboard() {
                 </div>
             </section>
 
-            {/* 실시간 차트 섹션 */}
+            {/* 차트 섹션 */}
             <section className={styles.chartSection}>
-                <StockChart qqqData={qqqData} tqqqData={tqqqData} />
+                <h2>📊 주가 차트</h2>
+                <div className={styles.chartsContainer}>
+                    <IndividualStockChart stockData={qqqData} color="#2563eb" />
+                    <IndividualStockChart
+                        stockData={tqqqData}
+                        color="#dc2626"
+                    />
+                </div>
             </section>
 
             {/* 새로고침 버튼 */}
