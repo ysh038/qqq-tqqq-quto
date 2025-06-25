@@ -69,58 +69,88 @@ export const calculateEMA = (prices, period) => {
 }
 
 /**
- * 트레이딩 신호 생성
+ * 트레이딩 신호 생성 (보수적 전략)
  * @param {Object} stockData - 주식 데이터
  * @returns {Object} 트레이딩 신호
  */
 export const generateTradingSignal = (stockData) => {
     const { rsi, sma20, sma50, price } = stockData
 
-    // 강한 상승 신호 (TQQQ → QQQ 전환)
-    if (rsi > 70 && price > sma20) {
+    // 🔴 극도 과열 - 완전 방어 모드 (RSI > 75)
+    if (rsi > 75 && price > sma20 * 1.05) {
         return {
             signal: 'SELL',
-            reason: `RSI 과열 (${rsi.toFixed(1)}) - TQQQ → QQQ 전환`,
-            tqqqRatio: 35,
+            reason: `극도 과열 (RSI: ${rsi.toFixed(1)}) - 완전 방어 모드`,
+            tqqqRatio: 5,
+            qqqRatio: 70,
+        }
+    }
+
+    // 🟠 강한 상승 - 보수적 접근 (RSI > 65)
+    if (rsi > 65 && price > sma20) {
+        return {
+            signal: 'SELL',
+            reason: `상승 과열 (RSI: ${rsi.toFixed(1)}) - 보수적 접근`,
+            tqqqRatio: 10,
+            qqqRatio: 65,
+        }
+    }
+
+    // 🟡 약한 상승 - 현상 유지 (RSI > 55)
+    if (rsi > 55 && price > sma20) {
+        return {
+            signal: 'HOLD',
+            reason: `약한 상승세 - 현상 유지 (RSI: ${rsi.toFixed(1)})`,
+            tqqqRatio: 15,
+            qqqRatio: 60,
+        }
+    }
+
+    // 🔵 중립 구간 - 균형 유지 (RSI 45-55)
+    if (rsi >= 45 && rsi <= 55) {
+        return {
+            signal: 'HOLD',
+            reason: `중립 구간 - 균형 유지 (RSI: ${rsi.toFixed(1)})`,
+            tqqqRatio: 20,
+            qqqRatio: 55,
+        }
+    }
+
+    // 🟢 약한 하락 - 조심스런 진입 (RSI 35-45)
+    if (rsi >= 35 && rsi < 45 && price > sma50) {
+        return {
+            signal: 'BUY',
+            reason: `약한 하락 - 조심스런 진입 (RSI: ${rsi.toFixed(1)})`,
+            tqqqRatio: 25,
+            qqqRatio: 50,
+        }
+    }
+
+    // 🟢 중간 하락 - 분할 매수 (RSI 25-35)
+    if (rsi >= 25 && rsi < 35) {
+        return {
+            signal: 'BUY',
+            reason: `중간 하락 - 분할 매수 시점 (RSI: ${rsi.toFixed(1)})`,
+            tqqqRatio: 30,
             qqqRatio: 45,
         }
     }
 
-    // 급락 신호 (QQQ → TQQQ 전환)
-    if (rsi < 35 && price < sma50) {
+    // 🟢 극도 과매도 - 적극 매수 (RSI < 25)
+    if (rsi < 25 && price < sma50) {
         return {
             signal: 'BUY',
-            reason: `RSI 과매도 (${rsi.toFixed(1)}) - QQQ → TQQQ 전환`,
-            tqqqRatio: 50,
-            qqqRatio: 30,
+            reason: `극도 과매도 (RSI: ${rsi.toFixed(1)}) - 적극 매수 기회`,
+            tqqqRatio: 35,
+            qqqRatio: 40,
         }
     }
 
-    // 약한 상승 (소폭 조정)
-    if (rsi > 60 && price > sma20 && price < sma20 * 1.03) {
-        return {
-            signal: 'SELL',
-            reason: `약한 상승 모멘텀 - TQQQ 2% 축소`,
-            tqqqRatio: 38,
-            qqqRatio: 42,
-        }
-    }
-
-    // 약한 하락 (분할 매수)
-    if (rsi < 45 && price < sma20 && price > sma50) {
-        return {
-            signal: 'BUY',
-            reason: `약한 하락 - 분할매수 시점`,
-            tqqqRatio: 45,
-            qqqRatio: 35,
-        }
-    }
-
-    // 기본 유지
+    // 기본값 (예외 상황)
     return {
         signal: 'HOLD',
         reason: `현재 상태 유지 (RSI: ${rsi.toFixed(1)}, 가격: $${price.toFixed(2)})`,
-        tqqqRatio: 40,
-        qqqRatio: 40,
+        tqqqRatio: 20,
+        qqqRatio: 55,
     }
 } 
