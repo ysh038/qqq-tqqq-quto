@@ -8,6 +8,8 @@ import {
     healthCheck
 } from '../controllers/stockController.js'
 
+import { getLongTermAnalysis } from '../controllers/longTermController.js'
+
 const router = express.Router()
 
 // 헬스 체크
@@ -28,6 +30,9 @@ router.get('/trading-signal/:symbol', getTradingSignal)
 // 대시보드 통합 데이터 (프론트엔드 메인 API)
 router.get('/dashboard', getDashboardData)
 
+// 장기 투자 분석
+router.get('/long-term/:symbol', getLongTermAnalysis)
+
 // API 정보
 router.get('/', (req, res) => {
     res.json({
@@ -39,7 +44,8 @@ router.get('/', (req, res) => {
             stocks: 'POST /api/stocks',
             vix: 'GET /api/vix',
             tradingSignal: 'GET /api/trading-signal/:symbol',
-            dashboard: 'GET /api/dashboard'
+            dashboard: 'GET /api/dashboard',
+            longTermAnalysis: 'GET /api/long-term/:symbol'
         },
         documentation: {
             dashboard: {
@@ -53,6 +59,10 @@ router.get('/', (req, res) => {
             stocks: {
                 description: '여러 주식 데이터 동시 조회',
                 body: '{ "symbols": ["QQQ", "TQQQ"] }'
+            },
+            longTermAnalysis: {
+                description: '장기 투자 분석',
+                example: '/api/long-term/QQQ'
             }
         }
     })
